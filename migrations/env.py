@@ -9,7 +9,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # ایمپورت Base و مدل‌ها
 from db.engine import Base
-import db.models  # مهم: تا Alembic همه مدل‌ها رو بشناسه
+import db.products  # مهم: تا Alembic همه مدل‌ها رو بشناسه
+import db.users  # مهم: تا Alembic همه مدل‌ها رو بشناسه
+import db.carts  # مهم: تا Alembic همه مدل‌ها رو بشناسه
 
 # Alembic Config
 config = context.config

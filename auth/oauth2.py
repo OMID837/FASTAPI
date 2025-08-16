@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from db.engine import get_db
-from db.models import User
+from db.users import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/authentication/token")
 

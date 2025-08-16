@@ -5,8 +5,9 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
+from auth.auth_form import CustomOAuth2PasswordRequestForm
 from auth.oauth2 import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, SECRET_KEY, ALGORITHM
-from db.models import User
+from db.users import User
 from db.engine import get_db
 from utilitis.secret import pwd_context
 from auth import oauth2
@@ -19,8 +20,8 @@ router = APIRouter(
 
 
 @router.post("/token")
-def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == form_data.username,User.is_active==True).first()
+def login(response: Response, form_data: CustomOAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == form_data.username, User.is_active == True).first()
     if not user or not pwd_context.verify(form_data.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

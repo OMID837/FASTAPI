@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Body, Depends, Request, HTTPException
 from sqlalchemy.orm import Session
-
+from fastapi_pagination import Page, paginate, add_pagination
 from auth.oauth2 import get_current_user
 from db.engine import get_db
-from db.models import User
-from schemas._input import RegisterUser
+from db.users import User
+from schemas.users import RegisterUser, UserSchema
 from utilitis.secret import pwd_context
 from utilitis.setings import generate_activation_token, verify_activation_token, executor, send_email_thread
 
@@ -80,6 +80,11 @@ def activate_account(token: str, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Account activated successfully"}
 
+
+@router.get("/user-get-all/", response_model=Page[UserSchema])
+def get_users(db: Session = Depends(get_db)):
+    users = db.query(User).all()
+    return paginate(users)
 
 @router.get('/user-get-profile/{username}')
 def user_get_profile(username: str, db: Session = Depends(get_db)):

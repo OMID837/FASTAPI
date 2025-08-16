@@ -1,7 +1,8 @@
 from db.engine import engine
 from db.engine import Base
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Boolean
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, Boolean, ForeignKey
 
 
 class User(Base):
@@ -15,6 +16,3 @@ class User(Base):
     )
     password: Mapped[int] = mapped_column()
     is_active: Mapped[bool] = mapped_column(Boolean, default=False)
-
-
-Base.metadata.create_all(bind=engine)
