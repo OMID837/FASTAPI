@@ -17,6 +17,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Base برای ساخت مدل‌ها
 Base = declarative_base()
 
+
 # Dependency برای FastAPI
 def get_db():
     db = SessionLocal()
