@@ -12,6 +12,7 @@ from db.engine import Base
 import db.products  # مهم: تا Alembic همه مدل‌ها رو بشناسه
 import db.users  # مهم: تا Alembic همه مدل‌ها رو بشناسه
 import db.carts  # مهم: تا Alembic همه مدل‌ها رو بشناسه
+import db.orders  # مهم: تا Alembic همه مدل‌ها رو بشناسه
 
 # Alembic Config
 config = context.config
